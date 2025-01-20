@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title>ROCKPAPERSCISSORS
+            PROJECT</title>
+        <style>
+
+            button{
+                
+               
+                border-radius: 20px;
+                display: inline;
+                margin: 10px;
+                padding: 10px;
+                
+
+            }
+            button:hover{
+                color: rgba(81, 97, 38, 0.966);
+                background-color: rgb(128, 133, 137);
+                height: 50px;
+            }
+           
+        </style>
+
+</head>
+<body>
+    <p>THE ROCK PAPER SCISSORS GAME</p>
+       <button onclick="
+        playGame('ROCK')
+                  
+       ">ROCK</button>
+
+       <button onclick="
+            playGame('PAPER')
+       
+       ">PAPER</button> 
+       <button onclick=" 
+         playGame('scissors')
+
+       ">SCISSORS</button> 
+
+       <button onclick="        
+            score.wins = 0,
+            score.loses = 0,
+            score.ties = 0
+            localStorage.removeItem('score');
+        
+       ">RESET SCORE</button>
+        
+            
+
+    <script>
+
+        let score = JSON.parse(localStorage.getItem('score')) || { 
+                wins: 0,
+                loses: 0,
+                ties: 0
+            };
+
+        /*
+        if(score === null){
+
+            score = { 
+                wins: 0,
+                loses: 0,
+                ties: 0
+            };
+        }
+       */
+
+        function playGame(playerMove){
+
+             const computerMove = pickComputerMove();
+
+            console.log(computerMove);
+
+            let result = '';
+            
+            if (playerMove === 'ROCK'){
+                if (computerMove === 'ROCK'){
+                    result = 'You Tie';
+                }
+                else if(computerMove === 'scissors'){
+                    result = 'You Loose';
+                }
+                else if(computerMove === 'PAPER'){
+                    result = 'You win';
+            }
+            
+        
+            }
+        
+
+            else if(playerMove === 'PAPER'){
+                
+                if (computerMove === 'ROCK'){
+                    result = 'You win';
+                }
+                else if(computerMove === 'PAPER'){
+                    result = 'You Tie';
+                }
+                else if(computerMove === 'scissors'){
+                    result = 'You Loose';
+            }
+        }
+
+        else if(playerMove === 'scissors'){
+
+            if (computerMove === 'ROCK'){
+                result = 'You Loose';
+            }
+            else if(computerMove === 'PAPER'){
+                result = 'You win';
+            }
+            else if(computerMove === 'scissors'){
+                result = 'You Tie';
+            }
+
+        }
+        if(result === 'You win'){
+        score.wins += 1;
+            }
+        else if(result === 'You Loose'){
+            score.loses += 1;
+            } 
+        else if(result === 'You Tie'){
+            score.ties += 1;
+        }  
+        localStorage.setItem('score',JSON.stringify(score));        
+        
+
+        alert(`You picked ${playerMove} and computer Move is ${computerMove}.${result}.
+WINS: ${score.wins}
+LOSES: ${score.loses}
+TIES: ${score.ties}`);
+
+        }
+       
+        function pickComputerMove(){
+
+            const randomNumber = Math.random();
+            let computerMove = '';
+
+            if (randomNumber >=  0 && randomNumber < 1/3){ 
+                computerMove = 'ROCK';
+            }
+            else if(randomNumber >= 1/3 && randomNumber < 2/3 ){
+            computerMove = 'PAPER';
+            }
+            else if(randomNumber >= 2/3 && randomNumber < 1){
+                computerMove = 'scissors';
+            }
+
+            return computerMove;
+    }
+    </script> 
+    
+</body>
+</html>
